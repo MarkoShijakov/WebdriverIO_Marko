@@ -1,0 +1,5 @@
+node_modules
+
+# Ignore boring Allure reports
+allure-report/
+allure-results/

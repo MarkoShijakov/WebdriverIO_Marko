@@ -1,0 +1,28 @@
+{
+  "name": "WebdriverIO_Marko",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkoShijakov/WebdriverIO_Marko.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarkoShijakov/WebdriverIO_Marko/issues"
+  },
+  "homepage": "https://github.com/MarkoShijakov/WebdriverIO_Marko#readme",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^9.0.8",
+    "@wdio/cli": "^9.0.9",
+    "@wdio/local-runner": "^9.0.9",
+    "@wdio/mocha-framework": "^9.0.8",
+    "@wdio/spec-reporter": "^9.0.8"
+    
+  }
+}
