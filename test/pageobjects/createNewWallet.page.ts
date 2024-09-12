@@ -1,10 +1,11 @@
-const clipboardy = require('clipboardy');
-const assert = require('assert');
-
 class CreateNewWalletPage {
 
     get copy_btn() {
         return $('//button[text()="Copy"]');
+    }
+
+    get copiedToClipboardPopUp() {
+        return $('//div[@id="notistack-snackbar"]//*[@data-testid="InfoIcon"]')
     }
 
     getPhraseTxt_byOrder(phaseNumber: number) {
@@ -14,27 +15,23 @@ class CreateNewWalletPage {
     // Methods:
     async clickCopyBtn() {
         await this.copy_btn.click();
-    }
-
-    async readCopiedText() {
-        const copiedText = await clipboardy.read();
-        return copiedText;
+        await this.copiedToClipboardPopUp.waitForExist({ timeout: 5000 });
     }
 
     async getFullRecoveryPhrase() {
         let recoveryPhrase = '';
-        for (let i = 0; i < 12; i++) {
+        for (let i = 1; i < 13; i++) {
             recoveryPhrase += await this.getPhraseTxt_byOrder(i).getText() + ' ';
         }
         return recoveryPhrase.trim();
     }
 
     async verifyCopiedText() {
-        await this.clickCopyBtn();
-        const copiedText = await this.readCopiedText();
         const recoveryPhrase = await this.getFullRecoveryPhrase();
-        assert.strictEqual(copiedText, recoveryPhrase, 'Copied text does not match the recovery phrase.');
+        await expect(browser).toHaveClipboardText(recoveryPhrase);
     }
+
+
 }
 
 module.exports = new CreateNewWalletPage();
