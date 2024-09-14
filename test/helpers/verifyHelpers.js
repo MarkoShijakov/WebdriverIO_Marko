@@ -1,8 +1,7 @@
 
 async function getUrlAndVerify(expectedText) {
 let url = await browser.getUrl()
-url.includes(expectedText)
+await expect(url).toContain(expectedText);
 }
-
 
 module.exports = { getUrlAndVerify };
