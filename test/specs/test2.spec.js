@@ -4,12 +4,12 @@ const onboardPage = require('../pageobjects/onboard.page');
 const createNewWallet = require('../pageobjects/createNewWallet.page');
 const verifyHelpers = require('../helpers/verifyHelpers');
 
-describe('Scenario 2 test', function () {
+describe('Test 2: Wallet Setup and Twitter Verification', function () {
     before(async function () {
         await navigation.openHomePage();
     });
 
-    it('First step', async function () {
+    it('should complete wallet setup, verify Twitter profile opens and returns to portfolio', async function () {
         await homePage.clickAccessWalletBtn();
         await onboardPage.clickIneedNewWalletBtn();
         await createNewWallet.getAllPhrasesText();

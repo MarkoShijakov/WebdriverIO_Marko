@@ -1,10 +1,5 @@
-za pokretanje testa:
-npx wdio run wdio.conf.js
-
 za pokretanje specificnog testa:
-npx wdio run wdio.conf.js --spec ./test/specs/scenario1.spec.js
-npx wdio run wdio.conf.js --spec ./test/specs/scenario2.spec.js
-npx wdio run wdio.conf.js --spec ./test/specs/scenario3.spec.js
+npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js
+npx wdio run wdio.conf.js --spec ./test/specs/test2.spec.js
+npx wdio run wdio.conf.js --spec ./test/specs/test3.spec.js
 
-tutorijal:
-https://www.youtube.com/watch?v=gdd5ZC5L9TM&list=PLhW3qG5bs-L9K2xtu-04jZFqykzXzqJW8

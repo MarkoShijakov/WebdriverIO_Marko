@@ -5,12 +5,12 @@ const createNewWallet = require('../pageobjects/createNewWallet.page');
 const portfolioPage = require('../pageobjects/portfolio.page');
 const walletManagment = require('../pageobjects/walletManagement.page');
 
-describe('Scenario 3 test', function () {
+describe('Test 3: Wallet Management and Recovery Phrases', function () {
     before(async function () {
         await navigation.openHomePage();
     });
 
-    it('First step', async function () {
+    it('should manage recovery phrases and verify updated wallet phrases', async function () {
         await homePage.clickAccessWalletBtn();
         await onboardPage.clickIneedNewWalletBtn();
         await createNewWallet.getAllPhrasesText();
