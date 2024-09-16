@@ -134,7 +134,7 @@ class CreateNewWalletPage {
         await expect(browser).toHaveUrl('https://solflare.com/portfolio'); //this will fail because we user will not be on that page after closing twitter
     }
 
-    
+
 }
 
 module.exports = new CreateNewWalletPage();

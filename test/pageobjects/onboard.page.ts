@@ -6,6 +6,9 @@ class onboardPage {
         return $('//button[@data-id="i_need_a_wallet_button"]');
     }
 
+    get enterSolana_btn() {
+        return $('//button//span[contains(text(), "Enter Solana")]');
+    }
 
 
     //METHODS:
@@ -16,5 +19,10 @@ class onboardPage {
         await getUrlAndVerify('create')
     }
 
+    async clickEnterSolanaBtn() {
+        await this.enterSolana_btn.click();
+        await getUrlAndVerify('portfolio')
+    }
+
 }
-module.exports = new onboardPage
+module.exports = new onboardPage();

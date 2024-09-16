@@ -18,4 +18,4 @@ class homePage {
 
 }
 
-module.exports = new homePage
+module.exports = new homePage();
