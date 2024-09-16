@@ -10,7 +10,7 @@
         "types": [
             "node",
             "@wdio/globals/types",
-            "expect-webdriverio",
+            // "expect-webdriverio",
             "@wdio/mocha-framework"
         ],
         "skipLibCheck": true,
@@ -21,7 +21,8 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true
     },
     "include": [
         "test",

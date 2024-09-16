@@ -1,10 +1,13 @@
 {
-  "name": "WebdriverIO_Marko",
+  "name": "webdriverio-marko",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "wdio run wdio.conf.ts",
+    "test:chrome": "BROWSER=chrome npx wdio run wdio.conf.ts",
+    "test:firefox": "BROWSER=firefox npx wdio run wdio.conf.ts",
+    "test:regression": "npx wdio run wdio.conf.ts --suite regression"
   },
   "repository": {
     "type": "git",
@@ -18,14 +21,22 @@
   },
   "homepage": "https://github.com/MarkoShijakov/WebdriverIO_Marko#readme",
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.4.2",
     "@wdio/allure-reporter": "^9.0.8",
     "@wdio/cli": "^9.0.9",
     "@wdio/local-runner": "^9.0.9",
+    "@wdio/logger": "^9.0.8",
     "@wdio/mocha-framework": "^9.0.8",
     "@wdio/spec-reporter": "^9.0.8",
-    "allure-commandline": "^2.30.0"
+    "allure-commandline": "^2.30.0",
+    "chromedriver": "^128.0.3",
+    "geckodriver": "^4.4.4",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
-    "clipboardy": "^4.0.0"
+    "clipboardy": "^4.0.0",
+    "date-fns": "^4.0.0",
+    "winston": "^3.14.2"
   }
 }

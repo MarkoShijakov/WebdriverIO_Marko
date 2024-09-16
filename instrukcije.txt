@@ -3,3 +3,24 @@ npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js
 npx wdio run wdio.conf.js --spec ./test/specs/test2.spec.js
 npx wdio run wdio.conf.js --spec ./test/specs/test3.spec.js
 
+da se pokrenu svi testovi u chrome:
+BROWSER=chrome npx wdio run wdio.conf.ts
+da se pokrenu svi testovi u firefox:
+BROWSER=firefox npx wdio run wdio.conf.ts
+
+da se pokrene pojedinacni test dodaje se samo 
+BROWSER=firefox ispred poziva tacnog testa
+
+da se pokrene regression suite (sva 3 testa)
+npx wdio run wdio.conf.ts --suite regression
+
+regression u firefox:
+BROWSER=firefox npx wdio run wdio.conf.ts --suite regression
+
+pokretanje svih testova u CHROME podeseno u package.json fajlu:
+npm run test:chrome
+regression u package.json fajlu:
+npm run test:regression
+
+
+
