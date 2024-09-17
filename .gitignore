@@ -1,5 +1,5 @@
 node_modules
 
-# ignore unnecessary Allure reports
+# ignore unnecessary (for this test) Allure reports
 allure-report/
 allure-results/

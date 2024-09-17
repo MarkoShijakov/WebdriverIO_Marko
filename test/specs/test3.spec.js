@@ -81,8 +81,7 @@ describe('Test 3: Wallet Management and Recovery Phrases', function () {
         logger.info('User clicks Save button');
         await walletManagment.clickSaveBtn();
 
-        logger.info('Pausing for wallet to save');
-        await browser.pause(1000); //Wait for wallet (if I have time, I will add waitForElement...)
+        await browser.pause(1000); //Wait for wallet (if I have time, I will add waitForElement instead of pause...)
 
         logger.info('Retrieving all recovery phrases from My Wallet list');
         const myWalletPhrases = await walletManagment.getAllRecoveryPhrasesFromMyWalletList();

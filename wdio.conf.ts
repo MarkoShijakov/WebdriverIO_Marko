@@ -5,7 +5,7 @@ import winston from 'winston';
 
 // Configure the logger
 const logger = winston.createLogger({
-    level: 'debug', // Postavljeno na 'debug' za detaljnije logove
+    level: 'debug', // Using debug mode for better logs
     format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.printf(({ timestamp, level, message }) => {
@@ -28,20 +28,22 @@ if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
 }
 
-// Define browser capabilities
+// Define browser capabilities. Type of browser, mode and parallel run
 const browserType = process.env.BROWSER || 'chrome';
+const isHeadless = process.env.HEADLESS === 'true';
+const maxInstances = process.env.MAX_INSTANCES ? parseInt(process.env.MAX_INSTANCES, 10) : 1;  //set the number for max parallel tests and default is 1
 
 const capabilities: Record<string, any> = {
     chrome: {
         browserName: 'chrome',
         'goog:chromeOptions': {
-            // args: ['--headless', '--disable-gpu'] //uncomment this if you want headless
+            args: isHeadless ? ['--headless', '--disable-gpu'] : []
         }
     },
     firefox: {
         browserName: 'firefox',
         'moz:firefoxOptions': {
-            // args: ['-headless'] //uncomment this if you want headless
+            args: isHeadless ? ['-headless'] : []
         }
     }
 };
@@ -52,11 +54,11 @@ export const config: Options.Testrunner & Options.WebdriverIO = {
     ],
     exclude: [],
 
-    maxInstances: 1,
+    maxInstances: maxInstances, // Set the number of parallel instances
 
     capabilities: [capabilities[browserType]],
 
-    logLevel: 'debug', // Postavljeno na 'debug' za detaljnije logove
+    logLevel: 'debug', // Using debug mode for better logs
 
     bail: 0,
 
@@ -76,14 +78,14 @@ export const config: Options.Testrunner & Options.WebdriverIO = {
     },
 
     suites: {
-        regression: [
+        regression: [   //Adding test suite for regression testing
             './test/specs/test1.spec.js',
             './test/specs/test2.spec.js',
             './test/specs/test3.spec.js'
         ],
        
     },
-
+        //adding universal messages for each test
     before: () => {
         logger.info('Test suite is starting...');
     },
@@ -97,7 +99,7 @@ export const config: Options.Testrunner & Options.WebdriverIO = {
         logger.info('Test suite has completed.');
     },
 
- 
+ //adding log details for after the test
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
             const screenshotPath = join(process.cwd(), 'screenshots', `${test.title}.png`);
@@ -114,7 +116,7 @@ export const config: Options.Testrunner & Options.WebdriverIO = {
             `;
             fs.writeFileSync(logPath, logData);
 
-            // Koristi winston za dodatne logove
+            // Using winston for additional logs (found that on net)
             logger.error(`Test failed: ${test.title}`);
             logger.debug(`Context: ${JSON.stringify(context)}`);
             logger.debug(`Result: ${JSON.stringify(result)}`);

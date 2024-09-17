@@ -1,26 +1,41 @@
-za pokretanje specificnog testa:
+to start specific test:
 npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js
 npx wdio run wdio.conf.js --spec ./test/specs/test2.spec.js
 npx wdio run wdio.conf.js --spec ./test/specs/test3.spec.js
 
-da se pokrenu svi testovi u chrome:
+
+to start all tests in CHROME:
 BROWSER=chrome npx wdio run wdio.conf.ts
-da se pokrenu svi testovi u firefox:
+
+to start all tests in FIREFOX:
 BROWSER=firefox npx wdio run wdio.conf.ts
 
-da se pokrene pojedinacni test dodaje se samo 
-BROWSER=firefox ispred poziva tacnog testa
+just additional option:
+to run tests in parallel mode, add this command and specify max number of parallel tests:
+BROWSER=chrome MAX_INSTANCES=3 npx wdio run wdio.conf.ts     //or change the max number
 
-da se pokrene regression suite (sva 3 testa)
-npx wdio run wdio.conf.ts --suite regression
 
-regression u firefox:
+to start specific test in specific browser, just add:
+BROWSER={browser name} before call of specific test
+example:
+BROWSER=firefox npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js
+
+
+to start regression suite (all tests in this case)
+npx wdio run wdio.conf.ts --suite regression  //this will run all in chrome
+
+regression in firefox:
 BROWSER=firefox npx wdio run wdio.conf.ts --suite regression
 
-pokretanje svih testova u CHROME podeseno u package.json fajlu:
+
+to start all tests:
 npm run test:chrome
-regression u package.json fajlu:
+
+to start default regression:
 npm run test:regression
+HEADLESS=true npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js
 
-
-
+If you want to run something in headless mode, just add  HEADLESS=true in command like this:
+BROWSER=chrome HEADLESS=true npx wdio run wdio.conf.ts
+or like this:
+HEADLESS=true npx wdio run wdio.conf.js --spec ./test/specs/test1.spec.js

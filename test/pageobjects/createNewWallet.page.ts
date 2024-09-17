@@ -1,9 +1,9 @@
 const verifyHelpers = require('../helpers/verifyHelpers');
 
 class CreateNewWalletPage {
-    private phrasesTextList: string[] = [];
-    private initialTabCount: number = 0;
-    private originalTabHandle: string = '';
+    private phrasesTextList: string[] = [];  //create empty list
+    private initialTabCount: number = 0;    //using this for tab number verification (for twitter part) 
+    private originalTabHandle: string = ''; //created to store original tab name
 
     get copy_btn() {
         return $('//button[text()="Copy"]');
@@ -13,6 +13,7 @@ class CreateNewWalletPage {
         return $('//div[@id="notistack-snackbar"]//*[@data-testid="InfoIcon"]');
     }
 
+    //creating reusable locator
     getPhraseTxt_byOrder(phaseNumber: number) {
         return $(`//p[@data-index="${phaseNumber}"]`);
     }
@@ -25,6 +26,7 @@ class CreateNewWalletPage {
         return $('//button[@data-id="paste_button"]');
     }
 
+    //creating reusable locator
     getphrase_input(phaseNumber: number) {
         return $(`//input[@id="mnemonic-input-${phaseNumber}"]`);
     }
@@ -55,6 +57,7 @@ class CreateNewWalletPage {
         await this.copiedToClipboardPopUp.waitForExist({ timeout: 5000 });
     }
 
+    //get text from all 12 elements with reusable locator
     async getFullRecoveryPhrase() {
         let recoveryPhrase = '';
         for (let i = 1; i < 13; i++) {
@@ -68,10 +71,9 @@ class CreateNewWalletPage {
         await expect(browser).toHaveClipboardText(recoveryPhrase);
     }
 
+    // Iterate through elements from 1 to 12 and get text
     async getAllPhrasesText() {
         const textList: string[] = [];
-
-        // Iterate through elements from 1 to 12
         for (let phaseNumber = 1; phaseNumber < 13; phaseNumber++) {
             const element = await this.getPhraseTxt_byOrder(phaseNumber);
             const text = await element.getText();
@@ -88,10 +90,9 @@ class CreateNewWalletPage {
     }
 
     async fillInputsWithPhrases() {
-        // take one by one and add in empty fields
-        for (let i = 1; i <= this.phrasesTextList.length; i++) { // change loop condition to <= phrasesTextList.length
-            const inputField = await this.getphrase_input(i - 1); // Lokator za input polje
-            await inputField.setValue(this.phrasesTextList[i - 1]); // Postavi vrednost
+        for (let i = 1; i <= this.phrasesTextList.length; i++) { // take one by one and add in empty fields
+            const inputField = await this.getphrase_input(i - 1); // Locator for input field
+            await inputField.setValue(this.phrasesTextList[i - 1]); // set value in input field
         }
     }
 
@@ -103,6 +104,7 @@ class CreateNewWalletPage {
         await this.newPassword_input.waitForExist({ timeout: 5000 });
     }
 
+    //reusable method so we can assign password value by need so we don't need to hardcode that
     async enterPassword(password: string | number) {
         await this.newPassword_input.setValue(password);
         await this.repeatPassword_input.setValue(password);
@@ -112,22 +114,23 @@ class CreateNewWalletPage {
         await this.walletReady_txt.waitForExist({ timeout: 5000 });
     }
 
+    //method to verify new tab for twitter and to store name of original tab
     async clickFollowUsTwitterBtn() {
-        this.initialTabCount = (await browser.getWindowHandles()).length;
+        this.initialTabCount = (await browser.getWindowHandles()).length; 
         this.originalTabHandle = await browser.getWindowHandle();
         await this.followUsTwitter_btn.click();
     }
 
     async verifyTwitterInNewTab() {
-        await browser.switchWindow("https://x.com/solflare_wallet")  //this is also a verification for twitter tab
-        const handlesAfterClickTwitter = await browser.getWindowHandles();
-        return handlesAfterClickTwitter.length > this.initialTabCount;
+        await browser.switchWindow("https://x.com/solflare_wallet")  //this is also a verification for twitter tab. If there is no that url, test will fail
+        const handlesAfterClickTwitter = await browser.getWindowHandles();  //verification for tab numbers
+        return handlesAfterClickTwitter.length > this.initialTabCount; //using this for assert. In case of false, test will fail
     }
 
     async verifyTwitterTabClosed() {
         await browser.switchToWindow(this.originalTabHandle)
         const handlesAfterCloseTwitter = await browser.getWindowHandles();
-        return handlesAfterCloseTwitter.length == this.initialTabCount;
+        return handlesAfterCloseTwitter.length == this.initialTabCount; //using this for assert. In case of false, test will fail
     }
 
     async verifyUserIsInSollarePortfolio() {
